@@ -57,4 +57,12 @@ public @interface Modifying {
 	 * @return
 	 */
 	boolean clearAutomatically() default false;
+
+	/**
+	 * Determines if the method should run in a transactional context.
+	 * Default is true (transaction required).
+	 *
+	 * @return
+	 */
+	boolean transactional() default true;
 }
