@@ -10,6 +10,35 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+/**
+ * Aspect for handling @Modifying annotations with conditional transactional support.
+ * <p>
+ * This aspect intercepts methods annotated with @Modifying and determines whether a transaction
+ * should be opened based on the `transactional` parameter of the annotation.
+ * <p>
+ * - If `transactional` is set to `true`, a new transaction is explicitly opened using
+ * {@link PlatformTransactionManager}, and the method execution is wrapped within this transaction.
+ * - If `transactional` is set to `false`, the method executes without opening a transaction.
+ * <p>
+ * Usage:
+ * This aspect works with Spring Data JPA's @Modifying annotation, allowing for fine-grained control
+ * over transaction management for specific methods.
+ * <p>
+ * Example:
+ * <pre>
+ * {@code
+ * @Modifying(transactional = true)
+ * @Query("UPDATE YourEntity y SET y.field = :value WHERE y.id = :id")
+ * void updateEntity(@Param("value") String value, @Param("id") Long id);
+ * }
+ * </pre>
+ * <p>
+ * Dependencies:
+ * - Requires a {@link PlatformTransactionManager} bean to be configured in the application context.
+ * - Should be used in conjunction with Spring AOP or AspectJ for proper weaving.
+ *
+ * @author Petro Zhylenko
+ */
 @Aspect
 @Component
 public class ModifyingTransactionAspect {

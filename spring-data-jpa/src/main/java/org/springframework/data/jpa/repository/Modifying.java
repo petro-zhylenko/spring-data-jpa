@@ -37,6 +37,7 @@ import java.lang.annotation.Target;
  * @author Christoph Strobl
  * @author Nicolas Cirigliano
  * @author Jens Schauder
+ * @author Petro Zhylenko
  * @see Query
  */
 @Retention(RetentionPolicy.RUNTIME)
